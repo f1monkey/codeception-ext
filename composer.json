@@ -4,7 +4,8 @@
     "require": {
         "codeception/codeception": "^4.1",
         "codeception/module-cli": "^1.0",
-        "php": ">=7.4"
+        "php": ">=7.4",
+        "codeception/module-symfony": "^1.1"
     },
     "license": "MIT",
     "authors": [

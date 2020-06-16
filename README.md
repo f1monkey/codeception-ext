@@ -20,3 +20,13 @@ extensions:
         -   \F1Monkey\Codeception\Extension\SymfonyClearCacheExtension:
                 cache_pools: ['cache.app']
 ```
+
+#### DoctrineDatabaseInitializeExtension
+
+Clear database and create initial schema
+```yaml
+extensions:
+    enabled:
+        -   \F1Monkey\Codeception\Extension\DoctrineDatabaseInitializeExtension:
+                pg_uuid_extension: true # load "uuid-ossp" postgres-extension
+```
