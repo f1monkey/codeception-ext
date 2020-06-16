@@ -1,0 +1,7 @@
+/vendor/
+
+# IDE files
+.idea/*
+!.idea/codeStyles
+!.idea/fileTemplates
+!.idea/inspectionProfiles

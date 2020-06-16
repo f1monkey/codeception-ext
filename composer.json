@@ -1,0 +1,22 @@
+{
+    "name": "f1monkey/codeception-ext",
+    "type": "library",
+    "require": {
+        "codeception/codeception": "^4.1",
+        "codeception/module-cli": "^1.0",
+        "php": ">=7.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "cyradin",
+            "email": "cyradin@protonmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "F1Monkey\\Codeception\\": "src/"
+        }
+    },
+    "description": "Codeception extensions and modules for symfony"
+}
