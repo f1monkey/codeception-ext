@@ -5,7 +5,9 @@
         "codeception/codeception": "^4.1",
         "codeception/module-cli": "^1.0",
         "php": ">=7.4",
-        "codeception/module-symfony": "^1.1"
+        "codeception/module-symfony": "^1.1",
+        "doctrine/orm": "^2.7",
+        "doctrine/doctrine-fixtures-bundle": "^3.3"
     },
     "license": "MIT",
     "authors": [

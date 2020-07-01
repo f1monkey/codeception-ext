@@ -3,12 +3,16 @@ declare(strict_types=1);
 
 namespace F1Monkey\Codeception\Extension;
 
+use Codeception\Event\SuiteEvent;
 use Codeception\Event\TestEvent;
 use Codeception\Events;
 use Codeception\Exception\ModuleRequireException;
 use Codeception\Extension;
 use Codeception\Module\Cli;
 use Codeception\Module\Symfony;
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Class DoctrineDatabaseInitializeExtension
@@ -18,7 +22,8 @@ use Codeception\Module\Symfony;
 class DoctrineDatabaseInitializeExtension extends Extension
 {
     public static $events = [
-        Events::TEST_BEFORE => 'beforeTest',
+        Events::SUITE_BEFORE => 'beforeSuite',
+        Events::TEST_BEFORE  => 'beforeTest',
     ];
 
     /** @var array */
@@ -27,11 +32,11 @@ class DoctrineDatabaseInitializeExtension extends Extension
     ];
 
     /**
-     * @param TestEvent $event
+     * @param SuiteEvent $event
      *
      * @throws ModuleRequireException
      */
-    public function beforeTest(TestEvent $event)
+    public function beforeSuite(SuiteEvent $event)
     {
         /** @var Symfony $symfony */
         $symfony = $this->getModule('Symfony');
@@ -59,6 +64,22 @@ class DoctrineDatabaseInitializeExtension extends Extension
         $cli->seeResultCodeIs(0);
 
         $this->loadPgUuidExtension($cli, $env);
+    }
+
+    /**
+     * @param TestEvent $event
+     *
+     * @throws ModuleRequireException
+     */
+    public function beforeTest(TestEvent $event)
+    {
+        /** @var Symfony $symfony */
+        $symfony = $this->getModule('Symfony');
+        $em      = $symfony->grabService(EntityManagerInterface::class);
+
+        $purger   = new ORMPurger($em);
+        $executor = new ORMExecutor($em, $purger);
+        $executor->execute([]);
     }
 
     /**
